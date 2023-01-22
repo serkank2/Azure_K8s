@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: testone
+  labels:
+    name: testone
+spec:
+  containers:
+  - name: testone
+    image: serkankaplan42/k8snetworkpoliciestest
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: 9091

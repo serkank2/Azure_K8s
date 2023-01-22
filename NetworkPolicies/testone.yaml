@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: testtwo
+spec:
+  selector:
+    matchLabels:
+      app: testtwo
+  template:
+    metadata:
+      labels:
+        app: testtwo
+    spec:
+      hostname: testtwo
+      containers:
+      - name: testtwo
+        image: serkankaplan42/k8snetworkpoliciestest:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 9091
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: testtwo-svc
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 9091
+    targetPort: 9091
+    protocol: TCP
+  selector:
+    app: testtwo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: iptesttwo
+spec:
+  selector:
+    app: testtwo
+  ports:
+  - port: 9091
+    targetPort: 9091
