@@ -1,34 +1,16 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: twodeploy
-spec:
-  selector:
-    matchLabels:
-      app: twodeploy
-  template:
-    metadata:
-      labels:
-        app: twodeploy
-    spec:
-      containers:
-      - name: twodeploy
-        image: nginx
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
-        ports:
-        - containerPort: 80
----
 apiVersion: v1
-kind: Service
+kind: Pod
 metadata:
   name: two
+  labels:
+    name: two
 spec:
-  selector:
-    app: twodeploy
-  ports:
-  - port: 80
-    targetPort: 80
-
+  containers:
+  - name: two
+    image: nginx
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: 80

@@ -1,34 +1,16 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: onedeploy
-spec:
-  selector:
-    matchLabels:
-      app: onedeploy
-  template:
-    metadata:
-      labels:
-        app: onedeploy
-    spec:
-      containers:
-      - name: onedeploy
-        image: nginx
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
-        ports:
-        - containerPort: 80
----
 apiVersion: v1
-kind: Service
+kind: Pod
 metadata:
   name: one
+  labels:
+    name: one
 spec:
-  selector:
-    app: onedeploy
-  ports:
-  - port: 80
-    targetPort: 80
-
+  containers:
+  - name: one
+    image: nginx
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: 80
