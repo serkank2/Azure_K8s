@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: threedeploy
+  labels:
+    app: threedeploy
+spec:
+  selector:
+    matchLabels:
+      app: threedeploy
+  template:
+    metadata:
+      labels:
+        app: threedeploy
+    spec:
+      containers:
+      - name: threedeploy
+        image: nginx
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: three
+spec:
+  selector:
+    app: threedeploy
+  ports:
+  - port: 80
+    targetPort: 80
+
